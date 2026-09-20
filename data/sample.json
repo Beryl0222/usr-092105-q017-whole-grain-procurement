@@ -1,0 +1,9 @@
+{
+  "event_id": "evt-092105-017-0001",
+  "event_type": "BATCH_DELIVERED",
+  "aggregate_type": "purchase_contract",
+  "aggregate_id": "whole-grain-procurement-001",
+  "occurred_at": "2026-09-20T12:00:00+08:00",
+  "version": 1,
+  "summary": "登记全谷物集采验收的首条领域记录"
+}
