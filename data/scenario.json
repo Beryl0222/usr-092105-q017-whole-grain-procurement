@@ -1,0 +1,721 @@
+{
+  "meta": {
+    "title": "2026-10-05 当周全谷物集采验收场景",
+    "cases": [
+      "全麦面包外包装标称全麦，随附原料证明对应的是上一个生产批次 B20260920-BRD",
+      "供应商缺货申请以杂粮饭料包替代杂粮米，原菜单仍展示全谷物≥50%的营养承诺"
+    ],
+    "checkpoints_note": "checkpoints 给出某时刻回放必须出现的 finding 编码；final_expect 给出完整回放后的结论。"
+  },
+  "streams": {
+    "headline": [
+      {
+        "event_id": "evt-1005-ct-01",
+        "event_type": "TENDER_DEFINED",
+        "aggregate_type": "purchase_contract",
+        "aggregate_id": "contract-edu-wg-2026",
+        "occurred_at": "2026-08-25T10:00:00+08:00",
+        "version": 1,
+        "summary": "登记秋季学期全谷物集采招标定义",
+        "payload": {
+          "tender_id": "T-2026-WG",
+          "title": "学校食堂全谷物原料及成品集采",
+          "product_requirements": [
+            {
+              "sku": "BRD-WW-01",
+              "name": "全麦切片面包",
+              "metrics": [
+                { "name": "全麦粉含量", "min": 40, "max": 100, "unit": "%", "source": "standard" },
+                { "name": "水分", "min": 0, "max": 35, "unit": "%", "source": "standard" }
+              ]
+            },
+            {
+              "sku": "GR-MIX-01",
+              "name": "杂粮米（配方米）",
+              "metrics": [
+                { "name": "全谷物原料占比", "min": 50, "max": 100, "unit": "%", "source": "standard" }
+              ]
+            },
+            {
+              "sku": "GR-PACK-02",
+              "name": "杂粮饭料包",
+              "metrics": [
+                { "name": "全谷物比例", "min": 30, "max": 100, "unit": "%", "source": "standard" },
+                { "name": "水分", "min": 0, "max": 13, "unit": "%", "source": "standard" }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "event_id": "evt-1005-ct-02",
+        "event_type": "CONTRACT_TERMS_EFFECTIVE",
+        "aggregate_type": "purchase_contract",
+        "aggregate_id": "contract-edu-wg-2026",
+        "occurred_at": "2026-08-30T16:00:00+08:00",
+        "version": 2,
+        "summary": "合同条款 v2026-09 生效，全麦粉含量按合同加严至≥51%",
+        "payload": {
+          "contract_no": "HT-2026-018",
+          "supplier_id": "S-BAKERY",
+          "effective_from": "2026-09-01T00:00:00+08:00",
+          "effective_to": "2026-12-31T23:59:59+08:00",
+          "terms_snapshot": {
+            "terms_version": "v2026-09",
+            "thresholds": [
+              { "sku": "BRD-WW-01", "name": "全麦粉含量", "min": 51, "max": 100, "unit": "%", "source": "contract" },
+              { "sku": "BRD-WW-01", "name": "水分", "min": 0, "max": 35, "unit": "%", "source": "contract" },
+              { "sku": "GR-MIX-01", "name": "全谷物原料占比", "min": 50, "max": 100, "unit": "%", "source": "contract" },
+              { "sku": "GR-PACK-02", "name": "全谷物比例", "min": 30, "max": 100, "unit": "%", "source": "contract" },
+              { "sku": "GR-PACK-02", "name": "水分", "min": 0, "max": 13, "unit": "%", "source": "contract" }
+            ]
+          }
+        }
+      },
+      {
+        "event_id": "evt-1005-ct-03",
+        "event_type": "ORDER_PLACED",
+        "aggregate_type": "purchase_contract",
+        "aggregate_id": "contract-edu-wg-2026",
+        "occurred_at": "2026-10-04T15:00:00+08:00",
+        "version": 3,
+        "summary": "学校下单全麦面包 200 个，冻结下单时有效条款 v2026-09",
+        "payload": {
+          "order_no": "PO-20261005-01",
+          "placed_at": "2026-10-04T15:00:00+08:00",
+          "terms_version": "v2026-09",
+          "items": [{ "sku": "BRD-WW-01", "name": "全麦切片面包", "quantity": 200, "unit": "个" }]
+        }
+      },
+      {
+        "event_id": "evt-1005-ct-04",
+        "event_type": "ORDER_PLACED",
+        "aggregate_type": "purchase_contract",
+        "aggregate_id": "contract-edu-wg-2026",
+        "occurred_at": "2026-10-04T15:05:00+08:00",
+        "version": 4,
+        "summary": "学校下单杂粮米 200 份原料",
+        "payload": {
+          "order_no": "PO-20261005-02",
+          "placed_at": "2026-10-04T15:05:00+08:00",
+          "terms_version": "v2026-09",
+          "items": [{ "sku": "GR-MIX-01", "name": "杂粮米（配方米）", "quantity": 40, "unit": "公斤" }]
+        }
+      },
+
+      {
+        "event_id": "evt-1005-brdsku-01",
+        "event_type": "CATEGORY_REGISTERED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:BRD-WW-01",
+        "occurred_at": "2026-09-01T09:00:00+08:00",
+        "version": 1,
+        "summary": "登记全麦切片面包类别与全谷物声明",
+        "payload": {
+          "sku": "BRD-WW-01",
+          "category": "谷物制品/面包",
+          "whole_grain_claim": "全麦粉含量≥51%"
+        }
+      },
+      {
+        "event_id": "evt-1005-brdsku-02",
+        "event_type": "RECIPE_CERTIFIED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:BRD-WW-01",
+        "occurred_at": "2026-09-02T09:30:00+08:00",
+        "version": 2,
+        "summary": "登记面包配方 v3 及原料证明（证明仅覆盖 9 月批次）",
+        "payload": {
+          "recipe_id": "R-BRD-01",
+          "sku": "BRD-WW-01",
+          "formula_version": "v3",
+          "ingredient_certs": [
+            {
+              "cert_no": "CERT-FLR-20260918",
+              "ingredient": "全麦粉",
+              "covered_batch_nos": ["B20260920-BRD"],
+              "issued_at": "2026-09-18T00:00:00+08:00"
+            }
+          ]
+        }
+      },
+      {
+        "event_id": "evt-1005-brdsku-03",
+        "event_type": "PROCESS_INFO_REPORTED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:BRD-WW-01",
+        "occurred_at": "2026-09-02T09:40:00+08:00",
+        "version": 3,
+        "summary": "上报面包烘烤加工工艺",
+        "payload": {
+          "sku": "BRD-WW-01",
+          "process_summary": "和面、一次醒发、成型、二次醒发、210℃烘烤25分钟，冷却后独立包装"
+        }
+      },
+      {
+        "event_id": "evt-1005-mixsku-01",
+        "event_type": "CATEGORY_REGISTERED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:GR-MIX-01",
+        "occurred_at": "2026-09-01T09:05:00+08:00",
+        "version": 1,
+        "summary": "登记杂粮米类别与全谷物声明",
+        "payload": {
+          "sku": "GR-MIX-01",
+          "category": "谷物/配方米",
+          "whole_grain_claim": "全谷物原料≥50%"
+        }
+      },
+      {
+        "event_id": "evt-1005-packsku-01",
+        "event_type": "CATEGORY_REGISTERED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:GR-PACK-02",
+        "occurred_at": "2026-09-01T09:10:00+08:00",
+        "version": 1,
+        "summary": "登记杂粮饭料包类别与全谷物声明",
+        "payload": {
+          "sku": "GR-PACK-02",
+          "category": "谷物制品/复配料包",
+          "whole_grain_claim": "全谷物≥30%"
+        }
+      },
+      {
+        "event_id": "evt-1005-packsku-02",
+        "event_type": "RECIPE_CERTIFIED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:GR-PACK-02",
+        "occurred_at": "2026-09-22T10:00:00+08:00",
+        "version": 2,
+        "summary": "登记杂粮饭料包配方与原料证明（覆盖 9 月下旬至 10 月 5 日生产）",
+        "payload": {
+          "recipe_id": "R-PACK-02",
+          "sku": "GR-PACK-02",
+          "formula_version": "v2",
+          "ingredient_certs": [
+            {
+              "cert_no": "CERT-GRN-20260925",
+              "ingredient": "燕麦米、糙米、荞麦等杂粮",
+              "produced_between": { "from": "2026-09-20T00:00:00+08:00", "to": "2026-10-05T23:59:59+08:00" },
+              "issued_at": "2026-09-25T00:00:00+08:00"
+            }
+          ]
+        }
+      },
+      {
+        "event_id": "evt-1005-packsku-03",
+        "event_type": "PROCESS_INFO_REPORTED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:GR-PACK-02",
+        "occurred_at": "2026-09-22T10:10:00+08:00",
+        "version": 3,
+        "summary": "上报料包清洗、配比、分装工艺",
+        "payload": {
+          "sku": "GR-PACK-02",
+          "process_summary": "杂粮筛选清洗、按配比混合、定量分装、辐照杀菌、外包装标注配料与全谷物比例"
+        }
+      },
+
+      {
+        "event_id": "evt-1005-brdb-01",
+        "event_type": "BATCH_PRODUCED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-BRD",
+        "occurred_at": "2026-10-04T22:00:00+08:00",
+        "version": 1,
+        "summary": "本周面包批次 B20261005-BRD 夜间生产 200 个",
+        "payload": {
+          "batch_no": "B20261005-BRD",
+          "sku": "BRD-WW-01",
+          "produced_at": "2026-10-04T22:00:00+08:00",
+          "quantity": 200
+        }
+      },
+      {
+        "event_id": "evt-1005-brdb-02",
+        "event_type": "SAMPLING_PLAN_SET",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-BRD",
+        "occurred_at": "2026-10-04T22:10:00+08:00",
+        "version": 2,
+        "summary": "按 GB 抽检规则设定面包批次抽样方案",
+        "payload": {
+          "batch_no": "B20261005-BRD",
+          "plan": {
+            "standard": "校食采抽检细则-2026",
+            "sample_count": 5,
+            "points": ["生产线末端", "冷却间", "成品库"],
+            "items": ["全麦粉含量", "水分"]
+          }
+        }
+      },
+      {
+        "event_id": "evt-1005-brdb-03",
+        "event_type": "BATCH_DELIVERED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-BRD",
+        "occurred_at": "2026-10-05T06:30:00+08:00",
+        "version": 3,
+        "summary": "面包 200 个送达学校食堂",
+        "payload": {
+          "batch_no": "B20261005-BRD",
+          "order_no": "PO-20261005-01",
+          "delivered_at": "2026-10-05T06:30:00+08:00",
+          "delivered_quantity": 200
+        }
+      },
+      {
+        "event_id": "evt-1005-brds-01",
+        "event_type": "SAMPLE_COLLECTED",
+        "aggregate_type": "acceptance_sample",
+        "aggregate_id": "sample:S-1005-BRD-01",
+        "occurred_at": "2026-10-05T06:40:00+08:00",
+        "version": 1,
+        "summary": "对本批面包随机抽取 5 个样品",
+        "payload": {
+          "sample_no": "S-1005-BRD-01",
+          "batch_no": "B20261005-BRD",
+          "collected_at": "2026-10-05T06:40:00+08:00",
+          "sample_count": 5
+        }
+      },
+      {
+        "event_id": "evt-1005-brds-02",
+        "event_type": "TEST_RESULT_RECORDED",
+        "aggregate_type": "acceptance_sample",
+        "aggregate_id": "sample:S-1005-BRD-01",
+        "occurred_at": "2026-10-05T07:00:00+08:00",
+        "version": 2,
+        "summary": "快检合格：全麦粉含量 56%，结论仅覆盖样品 S-1005-BRD-01 与本批次",
+        "payload": {
+          "sample_no": "S-1005-BRD-01",
+          "test_no": "R-1005-BRD-01",
+          "issued_at": "2026-10-05T07:00:00+08:00",
+          "conclusion": "qualified",
+          "scope_notice": "结论仅对来样及批次 B20261005-BRD 有效，不外推其他批次或全部产品",
+          "items": [
+            { "name": "全麦粉含量", "value": 56, "unit": "%", "conclusion": "qualified" },
+            { "name": "水分", "value": 30.2, "unit": "%", "conclusion": "qualified" }
+          ]
+        }
+      },
+      {
+        "event_id": "evt-1005-brdb-04",
+        "event_type": "SUPPLEMENT_DOCUMENTED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-BRD",
+        "occurred_at": "2026-10-05T07:15:00+08:00",
+        "version": 4,
+        "summary": "供应商补交覆盖本批次的全麦粉证明 CERT-FLR-20261002（批次尚未定案）",
+        "payload": {
+          "batch_no": "B20261005-BRD",
+          "doc_type": "ingredient_cert",
+          "submitted_at": "2026-10-05T07:15:00+08:00",
+          "detail": {
+            "new_cert_no": "CERT-FLR-20261002",
+            "covers_cert_no": "CERT-FLR-20260918",
+            "covered_batch_nos": ["B20261005-BRD"],
+            "issued_at": "2026-10-02T00:00:00+08:00"
+          }
+        }
+      },
+      {
+        "event_id": "evt-1005-brdb-05",
+        "event_type": "ACCEPTANCE_DECIDED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-BRD",
+        "occurred_at": "2026-10-05T07:35:00+08:00",
+        "version": 5,
+        "summary": "证明补齐后整批接收；食品安全管理员签署标准/合同阈值差异，按合同≥51%口径放行",
+        "payload": {
+          "batch_no": "B20261005-BRD",
+          "decision": "accepted",
+          "decided_by": "李验收",
+          "decided_at": "2026-10-05T07:35:00+08:00",
+          "based_on_samples": ["S-1005-BRD-01"],
+          "accepted_quantity": 200,
+          "threshold_signoff": {
+            "by": "王食安",
+            "role": "食品安全管理员",
+            "at": "2026-10-05T07:35:00+08:00",
+            "note": "国标全麦粉≥40%、合同≥51%不一致；实测56%满足合同加严阈值，按合同接收"
+          }
+        }
+      },
+
+      {
+        "event_id": "evt-1005-sub-01",
+        "event_type": "SUBSTITUTION_REQUESTED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "request:SUB-1005-01",
+        "occurred_at": "2026-10-05T06:32:00+08:00",
+        "version": 1,
+        "summary": "杂粮米缺货，供应商申请以杂粮饭料包 GR-PACK-02 替代",
+        "payload": {
+          "request_no": "SUB-1005-01",
+          "order_no": "PO-20261005-02",
+          "original_sku": "GR-MIX-01",
+          "substitute_sku": "GR-PACK-02",
+          "reason": "产区发运延误，杂粮米当日无法到货，申请以同供应商杂粮饭料包替代"
+        }
+      },
+      {
+        "event_id": "evt-1005-sub-02",
+        "event_type": "SUBSTITUTION_APPROVED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "request:SUB-1005-01",
+        "occurred_at": "2026-10-05T06:50:00+08:00",
+        "version": 2,
+        "summary": "采购主管批准替代，并将全谷物声明由≥50%调整为≥30%",
+        "payload": {
+          "request_no": "SUB-1005-01",
+          "approved_by": "张采购主管",
+          "approved_at": "2026-10-05T06:50:00+08:00",
+          "claim_adjustment": {
+            "from_claim": "全谷物原料≥50%",
+            "new_claim": "全谷物≥30%",
+            "basis": "替代品 GR-PACK-02 登记声明及配方证明，营养承诺不得沿用原杂粮米口径"
+          }
+        }
+      },
+      {
+        "event_id": "evt-1005-packb-01",
+        "event_type": "BATCH_PRODUCED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-GRP",
+        "occurred_at": "2026-10-03T08:00:00+08:00",
+        "version": 1,
+        "summary": "杂粮饭料包批次 B20261005-GRP 生产 200 份",
+        "payload": {
+          "batch_no": "B20261005-GRP",
+          "sku": "GR-PACK-02",
+          "produced_at": "2026-10-03T08:00:00+08:00",
+          "quantity": 200
+        }
+      },
+      {
+        "event_id": "evt-1005-packb-02",
+        "event_type": "SAMPLING_PLAN_SET",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-GRP",
+        "occurred_at": "2026-10-03T08:10:00+08:00",
+        "version": 2,
+        "summary": "设定料包批次抽样方案",
+        "payload": {
+          "batch_no": "B20261005-GRP",
+          "plan": {
+            "standard": "校食采抽检细则-2026",
+            "sample_count": 6,
+            "points": ["分装线", "成品库"],
+            "items": ["全谷物比例", "水分"]
+          }
+        }
+      },
+      {
+        "event_id": "evt-1005-packb-03",
+        "event_type": "BATCH_DELIVERED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-GRP",
+        "occurred_at": "2026-10-05T06:55:00+08:00",
+        "version": 3,
+        "summary": "凭批准的替代申请送达杂粮饭料包 200 份",
+        "payload": {
+          "batch_no": "B20261005-GRP",
+          "order_no": "PO-20261005-02",
+          "against_request_no": "SUB-1005-01",
+          "delivered_at": "2026-10-05T06:55:00+08:00",
+          "delivered_quantity": 200
+        }
+      },
+      {
+        "event_id": "evt-1005-packs-01",
+        "event_type": "SAMPLE_COLLECTED",
+        "aggregate_type": "acceptance_sample",
+        "aggregate_id": "sample:S-1005-GRP-01",
+        "occurred_at": "2026-10-05T06:56:00+08:00",
+        "version": 1,
+        "summary": "对替代料包随机抽取 6 份样品",
+        "payload": {
+          "sample_no": "S-1005-GRP-01",
+          "batch_no": "B20261005-GRP",
+          "collected_at": "2026-10-05T06:56:00+08:00",
+          "sample_count": 6
+        }
+      },
+      {
+        "event_id": "evt-1005-packs-02",
+        "event_type": "TEST_RESULT_RECORDED",
+        "aggregate_type": "acceptance_sample",
+        "aggregate_id": "sample:S-1005-GRP-01",
+        "occurred_at": "2026-10-05T07:20:00+08:00",
+        "version": 2,
+        "summary": "检测局部不合格：全谷物比例 33% 合格，水分 14.2% 超标",
+        "payload": {
+          "sample_no": "S-1005-GRP-01",
+          "test_no": "R-1005-GRP-01",
+          "issued_at": "2026-10-05T07:20:00+08:00",
+          "conclusion": "partial",
+          "scope_notice": "结论仅对来样及批次 B20261005-GRP 有效，不代表供应商全部产品",
+          "items": [
+            { "name": "全谷物比例", "value": 33, "unit": "%", "conclusion": "qualified" },
+            { "name": "水分", "value": 14.2, "unit": "%", "max": 13, "conclusion": "unqualified" }
+          ]
+        }
+      },
+      {
+        "event_id": "evt-1005-packb-04",
+        "event_type": "ACCEPTANCE_DECIDED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-GRP",
+        "occurred_at": "2026-10-05T07:30:00+08:00",
+        "version": 4,
+        "summary": "局部接收 180 份，隔离水分不合格的 20 份，不整批报废",
+        "payload": {
+          "batch_no": "B20261005-GRP",
+          "decision": "partial_accepted",
+          "decided_by": "李验收",
+          "decided_at": "2026-10-05T07:30:00+08:00",
+          "based_on_samples": ["S-1005-GRP-01"],
+          "accepted_quantity": 180,
+          "isolated_quantity": 20,
+          "note": "水分超标份隔离待补货，合格份供当日餐食，菜单按替代品声明发布"
+        }
+      },
+      {
+        "event_id": "evt-1005-packb-05",
+        "event_type": "RETURN_EXCHANGE_RECORDED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-GRP",
+        "occurred_at": "2026-10-05T08:00:00+08:00",
+        "version": 5,
+        "summary": "对隔离的 20 份登记换货，要求当日补货",
+        "payload": {
+          "record_no": "RT-1005-01",
+          "batch_no": "B20261005-GRP",
+          "type": "exchange",
+          "quantity": 20,
+          "reason": "水分 14.2% 超过 ≤13% 限值，按抽样判定范围隔离换货"
+        }
+      },
+      {
+        "event_id": "evt-1005-packb-06",
+        "event_type": "DEDUCTION_RECORDED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "batch:B20261005-GRP",
+        "occurred_at": "2026-10-05T08:10:00+08:00",
+        "version": 6,
+        "summary": "就换货延误产生的临时采购差价登记扣款 120 元，可沿订单与批次追溯",
+        "payload": {
+          "deduction_no": "DK-1005-01",
+          "order_no": "PO-20261005-02",
+          "batch_no": "B20261005-GRP",
+          "amount": 120,
+          "reason": "20 份换货延误，食堂临时等量采购产生差价"
+        }
+      },
+
+      {
+        "event_id": "evt-1005-menu-01",
+        "event_type": "MENU_RELEASED",
+        "aggregate_type": "menu_release",
+        "aggregate_id": "menu:MENU-20261005",
+        "occurred_at": "2026-10-04T18:00:00+08:00",
+        "version": 1,
+        "summary": "发布 10 月 5 日菜单：全麦面包、杂粮米饭",
+        "payload": {
+          "menu_id": "MENU-20261005",
+          "serving_date": "2026-10-05",
+          "items": [
+            { "sku": "BRD-WW-01", "name": "全麦面包", "claim": "全麦粉含量≥51%", "order_no": "PO-20261005-01" },
+            { "sku": "GR-MIX-01", "name": "杂粮米饭", "claim": "全谷物原料≥50%", "order_no": "PO-20261005-02" }
+          ],
+          "claims": ["早餐含全谷物面包", "午餐主食为全谷物≥50%杂粮米饭"]
+        }
+      },
+      {
+        "event_id": "evt-1005-menu-02",
+        "event_type": "MENU_UPDATED",
+        "aggregate_type": "menu_release",
+        "aggregate_id": "menu:MENU-20261005",
+        "occurred_at": "2026-10-05T07:00:00+08:00",
+        "version": 2,
+        "summary": "替代批准后 10 分钟内更新菜单：杂粮米饭改为杂粮饭，声明调整为≥30%",
+        "payload": {
+          "menu_id": "MENU-20261005",
+          "updated_at": "2026-10-05T07:00:00+08:00",
+          "items": [
+            { "sku": "BRD-WW-01", "name": "全麦面包", "claim": "全麦粉含量≥51%", "order_no": "PO-20261005-01" },
+            { "sku": "GR-PACK-02", "name": "杂粮饭", "claim": "全谷物≥30%", "order_no": "PO-20261005-02" }
+          ],
+          "claims": ["早餐含全谷物面包", "午餐主食为杂粮饭，全谷物≥30%"],
+          "change_reason": "杂粮米缺货，经 SUB-1005-01 批准以杂粮饭料包替代；全谷物声明由≥50%调整为≥30%，不再沿用原营养承诺"
+        }
+      },
+      {
+        "event_id": "evt-1005-menu-03",
+        "event_type": "MENU_UPDATED",
+        "aggregate_type": "menu_release",
+        "aggregate_id": "menu:MENU-20261005",
+        "occurred_at": "2026-10-05T07:40:00+08:00",
+        "version": 3,
+        "summary": "面包接收决定作出 5 分钟内更新菜单说明",
+        "payload": {
+          "menu_id": "MENU-20261005",
+          "updated_at": "2026-10-05T07:40:00+08:00",
+          "items": [
+            { "sku": "BRD-WW-01", "name": "全麦面包", "claim": "全麦粉含量≥51%", "order_no": "PO-20261005-01", "batch_no": "B20261005-BRD" },
+            { "sku": "GR-PACK-02", "name": "杂粮饭（180份，20份换货中）", "claim": "全谷物≥30%", "order_no": "PO-20261005-02", "batch_no": "B20261005-GRP" }
+          ],
+          "claims": ["早餐全麦面包：本批次全麦粉实测56%，合同加严阈值≥51%已经权签署", "午餐杂粮饭：替代料包全谷物≥30%，水分不合格20份已隔离换货"],
+          "change_reason": "面包原原料证明只覆盖上批次，补交 CERT-FLR-20261002 后接收；料包局部不合格部分隔离，菜单标注实际接收与换货情况"
+        }
+      }
+    ],
+
+    "stale_menu_after_substitution": [
+      {
+        "event_id": "evt-sm-ct-01",
+        "event_type": "TENDER_DEFINED",
+        "aggregate_type": "purchase_contract",
+        "aggregate_id": "contract-demo",
+        "occurred_at": "2026-09-01T09:00:00+08:00",
+        "version": 1,
+        "summary": "演示用招标定义",
+        "payload": {
+          "tender_id": "T-DEMO",
+          "title": "替代与菜单演示",
+          "product_requirements": [
+            { "sku": "GR-MIX-01", "name": "杂粮米", "metrics": [{ "name": "全谷物原料占比", "min": 50, "max": 100, "unit": "%", "source": "standard" }] },
+            { "sku": "GR-PACK-02", "name": "杂粮饭料包", "metrics": [{ "name": "全谷物比例", "min": 30, "max": 100, "unit": "%", "source": "standard" }] }
+          ]
+        }
+      },
+      {
+        "event_id": "evt-sm-ct-02",
+        "event_type": "CONTRACT_TERMS_EFFECTIVE",
+        "aggregate_type": "purchase_contract",
+        "aggregate_id": "contract-demo",
+        "occurred_at": "2026-09-02T09:00:00+08:00",
+        "version": 2,
+        "summary": "演示合同条款生效",
+        "payload": {
+          "contract_no": "HT-DEMO",
+          "supplier_id": "S-GRAIN",
+          "effective_from": "2026-09-02T00:00:00+08:00",
+          "effective_to": "2026-12-31T23:59:59+08:00",
+          "terms_snapshot": {
+            "terms_version": "v1",
+            "thresholds": [
+              { "sku": "GR-MIX-01", "name": "全谷物原料占比", "min": 50, "max": 100, "unit": "%", "source": "contract" },
+              { "sku": "GR-PACK-02", "name": "全谷物比例", "min": 30, "max": 100, "unit": "%", "source": "contract" }
+            ]
+          }
+        }
+      },
+      {
+        "event_id": "evt-sm-ct-03",
+        "event_type": "ORDER_PLACED",
+        "aggregate_type": "purchase_contract",
+        "aggregate_id": "contract-demo",
+        "occurred_at": "2026-10-04T15:00:00+08:00",
+        "version": 3,
+        "summary": "演示订单",
+        "payload": {
+          "order_no": "PO-DEMO-01",
+          "placed_at": "2026-10-04T15:00:00+08:00",
+          "terms_version": "v1",
+          "items": [{ "sku": "GR-MIX-01", "quantity": 20, "unit": "公斤" }]
+        }
+      },
+      {
+        "event_id": "evt-sm-sku-01",
+        "event_type": "CATEGORY_REGISTERED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:GR-MIX-01",
+        "occurred_at": "2026-09-05T09:00:00+08:00",
+        "version": 1,
+        "summary": "登记杂粮米",
+        "payload": { "sku": "GR-MIX-01", "category": "谷物/配方米", "whole_grain_claim": "全谷物原料≥50%" }
+      },
+      {
+        "event_id": "evt-sm-sku-02",
+        "event_type": "CATEGORY_REGISTERED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "sku:GR-PACK-02",
+        "occurred_at": "2026-09-05T09:05:00+08:00",
+        "version": 1,
+        "summary": "登记杂粮饭料包",
+        "payload": { "sku": "GR-PACK-02", "category": "谷物制品/料包", "whole_grain_claim": "全谷物≥30%" }
+      },
+      {
+        "event_id": "evt-sm-sub-01",
+        "event_type": "SUBSTITUTION_REQUESTED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "request:SUB-DEMO-01",
+        "occurred_at": "2026-10-05T06:30:00+08:00",
+        "version": 1,
+        "summary": "申请替代",
+        "payload": {
+          "request_no": "SUB-DEMO-01",
+          "order_no": "PO-DEMO-01",
+          "original_sku": "GR-MIX-01",
+          "substitute_sku": "GR-PACK-02",
+          "reason": "缺货"
+        }
+      },
+      {
+        "event_id": "evt-sm-sub-02",
+        "event_type": "SUBSTITUTION_APPROVED",
+        "aggregate_type": "supply_batch",
+        "aggregate_id": "request:SUB-DEMO-01",
+        "occurred_at": "2026-10-05T06:45:00+08:00",
+        "version": 2,
+        "summary": "批准替代并调整声明",
+        "payload": {
+          "request_no": "SUB-DEMO-01",
+          "approved_by": "张采购主管",
+          "approved_at": "2026-10-05T06:45:00+08:00",
+          "claim_adjustment": { "from_claim": "全谷物原料≥50%", "new_claim": "全谷物≥30%" }
+        }
+      },
+      {
+        "event_id": "evt-sm-menu-01",
+        "event_type": "MENU_RELEASED",
+        "aggregate_type": "menu_release",
+        "aggregate_id": "menu:MENU-DEMO",
+        "occurred_at": "2026-10-04T18:00:00+08:00",
+        "version": 1,
+        "summary": "菜单仍按原品类和原营养承诺展示，且替代批准后未更新",
+        "payload": {
+          "menu_id": "MENU-DEMO",
+          "serving_date": "2026-10-05",
+          "items": [
+            { "sku": "GR-MIX-01", "name": "杂粮米饭", "claim": "全谷物原料≥50%", "order_no": "PO-DEMO-01" }
+          ],
+          "claims": ["午餐主食全谷物≥50%"]
+        }
+      }
+    ]
+  },
+
+  "checkpoints": [
+    {
+      "stream": "headline",
+      "as_of": "2026-10-05T07:14:00+08:00",
+      "expect_codes": ["CERT_BATCH_MISMATCH"],
+      "note": "证明只覆盖上一批次 B20260920-BRD，补证到达前系统必须阻断面包接收"
+    }
+  ],
+  "final_expect": {
+    "headline": {
+      "error_codes": [],
+      "warning_codes": ["THRESHOLD_MISMATCH_SIGNED"],
+      "note": "完整处置后无阻断项；阈值差异保留为已经权签署的警示"
+    },
+    "stale_menu_after_substitution": {
+      "error_codes": ["MENU_CLAIM_STALE", "MENU_NOT_UPDATED"],
+      "warning_codes": [],
+      "note": "替代已批准但菜单仍挂原品类、原承诺且未更新"
+    }
+  }
+}

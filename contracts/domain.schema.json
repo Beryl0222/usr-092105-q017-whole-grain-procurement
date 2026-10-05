@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "全谷物集采验收领域事件",
-  "description": "用于跨模块交换事实记录的公共信封。",
+  "description": "用于跨模块交换事实记录的公共信封。payload 携带本领域事实，其形状由 event_type 决定，见 src/catalog.js。",
   "type": "object",
   "required": [
     "event_id",
@@ -10,22 +10,39 @@
     "aggregate_id",
     "occurred_at",
     "version",
-    "summary"
+    "summary",
+    "payload"
   ],
   "properties": {
     "event_id": {
       "type": "string",
       "minLength": 8,
-      "description": "事件唯一标识"
+      "description": "事件唯一标识；来源系统重试时必须沿用原事件标识"
     },
     "event_type": {
       "type": "string",
       "enum": [
-        "BATCH_DELIVERED",
+        "TENDER_DEFINED",
+        "CONTRACT_TERMS_EFFECTIVE",
+        "ORDER_PLACED",
+        "CATEGORY_REGISTERED",
+        "RECIPE_CERTIFIED",
+        "PROCESS_INFO_REPORTED",
+        "BATCH_PRODUCED",
+        "SAMPLING_PLAN_SET",
         "SAMPLE_COLLECTED",
-        "ACCEPTANCE_DECIDED",
+        "TEST_RESULT_RECORDED",
+        "BATCH_DELIVERED",
+        "SUBSTITUTION_REQUESTED",
         "SUBSTITUTION_APPROVED",
-        "MENU_UPDATED"
+        "SUBSTITUTION_REJECTED",
+        "ACCEPTANCE_DECIDED",
+        "MENU_RELEASED",
+        "MENU_UPDATED",
+        "RETURN_EXCHANGE_RECORDED",
+        "DEDUCTION_RECORDED",
+        "SUPPLEMENT_DOCUMENTED",
+        "APPEAL_DECIDED"
       ],
       "description": "本领域事件类型"
     },
@@ -47,18 +64,22 @@
     "occurred_at": {
       "type": "string",
       "format": "date-time",
-      "description": "事实发生时间"
+      "description": "事实发生时间（真实世界时间，不以后补顺序改变）"
     },
     "version": {
       "type": "integer",
       "minimum": 1,
-      "description": "对象版本"
+      "description": "同一 aggregate 内从 1 递增的对象版本"
     },
     "summary": {
       "type": "string",
       "minLength": 2,
       "description": "中文事实摘要"
+    },
+    "payload": {
+      "type": "object",
+      "description": "事件事实负载，必填字段由 src/catalog.js 与 src/validator.js 校验"
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

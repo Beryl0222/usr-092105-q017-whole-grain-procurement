@@ -1,9 +1,15 @@
 {
   "event_id": "evt-092105-017-0001",
   "event_type": "BATCH_DELIVERED",
-  "aggregate_type": "purchase_contract",
-  "aggregate_id": "whole-grain-procurement-001",
-  "occurred_at": "2026-09-20T12:00:00+08:00",
+  "aggregate_type": "supply_batch",
+  "aggregate_id": "batch:B20261005-BRD",
+  "occurred_at": "2026-10-05T06:30:00+08:00",
   "version": 1,
-  "summary": "登记全谷物集采验收的首条领域记录"
+  "summary": "全麦面包 200 个送达学校食堂（单条信封联调样例，完整链路见 data/scenario.json）",
+  "payload": {
+    "batch_no": "B20261005-BRD",
+    "order_no": "PO-20261005-01",
+    "delivered_at": "2026-10-05T06:30:00+08:00",
+    "delivered_quantity": 200
+  }
 }
