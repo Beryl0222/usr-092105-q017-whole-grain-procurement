@@ -1,0 +1,160 @@
+[
+  {
+    "event_id": "evt-2026-B01",
+    "event_type": "TENDER_DEFINED",
+    "aggregate_type": "purchase_contract",
+    "aggregate_id": "contract-rice-2026",
+    "occurred_at": "2026-09-10T09:00:00+08:00",
+    "version": 1,
+    "summary": "保存全谷物主食招标定义：全麦米饭",
+    "tender_id": "ZB-2026-015",
+    "product_category": "全麦米饭",
+    "standard_refs": ["全谷物食品通用要求"],
+    "claim_items": ["主食为全谷物"],
+    "contract_thresholds": { "whole_grain_content": 0.5 }
+  },
+  {
+    "event_id": "evt-2026-B02",
+    "event_type": "TERMS_LOCKED",
+    "aggregate_type": "purchase_contract",
+    "aggregate_id": "contract-rice-2026",
+    "occurred_at": "2026-09-12T10:00:00+08:00",
+    "version": 2,
+    "summary": "锁定订单 PO-1002 当时有效条款快照",
+    "order_id": "PO-1002",
+    "tender_id": "ZB-2026-015",
+    "terms_snapshot": {
+      "whole_grain_content": 0.5,
+      "claims": ["本餐主食为全麦米饭"]
+    }
+  },
+  {
+    "event_id": "evt-2026-B03",
+    "event_type": "SUBSTITUTION_REQUESTED",
+    "aggregate_type": "purchase_contract",
+    "aggregate_id": "contract-rice-2026",
+    "occurred_at": "2026-09-21T15:00:00+08:00",
+    "version": 3,
+    "summary": "供应商因全麦米缺货，申请换成杂粮饭料包",
+    "order_id": "PO-1002",
+    "original_item": "全麦米饭",
+    "proposed_item": "杂粮饭料包",
+    "reason": "供应商全麦米原料缺货"
+  },
+  {
+    "event_id": "evt-2026-B04",
+    "event_type": "SUBSTITUTION_APPROVED",
+    "aggregate_type": "purchase_contract",
+    "aggregate_id": "contract-rice-2026",
+    "occurred_at": "2026-09-21T16:30:00+08:00",
+    "version": 4,
+    "summary": "采购中心批准替代，供餐日 2026-09-22 生效",
+    "request_id": "evt-2026-B03",
+    "order_id": "PO-1002",
+    "approved_by": "采购中心 李谨",
+    "serving_date": "2026-09-22"
+  },
+  {
+    "event_id": "evt-2026-B05",
+    "event_type": "BATCH_DELIVERED",
+    "aggregate_type": "supply_batch",
+    "aggregate_id": "B1002-01",
+    "occurred_at": "2026-09-22T06:30:00+08:00",
+    "version": 1,
+    "summary": "杂粮饭料包批次到货，配方证明对应当前生产批次",
+    "order_id": "PO-1002",
+    "production_batch_no": "B1002-01",
+    "product_category": "杂粮饭料包",
+    "formula_cert": { "cert_id": "FC-9020", "covers_batch_no": "B1002-01" },
+    "processing_info": "料包复合包装，含糙米、燕麦、藜麦",
+    "arrived_qty": 800,
+    "unit": "份"
+  },
+  {
+    "event_id": "evt-2026-B06",
+    "event_type": "SAMPLING_PLAN_ISSUED",
+    "aggregate_type": "acceptance_sample",
+    "aggregate_id": "S-1002-01",
+    "occurred_at": "2026-09-22T06:50:00+08:00",
+    "version": 1,
+    "summary": "下达批次 B1002-01 抽样方案",
+    "batch_id": "B1002-01",
+    "plan": { "method": "随机抽样", "sample_size": 5, "items": ["whole_grain_content"] }
+  },
+  {
+    "event_id": "evt-2026-B07",
+    "event_type": "SAMPLE_COLLECTED",
+    "aggregate_type": "acceptance_sample",
+    "aggregate_id": "S-1002-01",
+    "occurred_at": "2026-09-22T07:00:00+08:00",
+    "version": 2,
+    "summary": "按方案完成抽样 5 份",
+    "batch_id": "B1002-01",
+    "plan_id": "evt-2026-B06",
+    "sample_qty": 5,
+    "collected_by": "验收员 赵青"
+  },
+  {
+    "event_id": "evt-2026-B08",
+    "event_type": "TEST_RESULT_RECORDED",
+    "aggregate_type": "acceptance_sample",
+    "aggregate_id": "S-1002-01",
+    "occurred_at": "2026-09-22T11:00:00+08:00",
+    "version": 3,
+    "summary": "全谷物含量62%，国标与合同阈值均通过，结论仅覆盖本样品与批次",
+    "batch_id": "B1002-01",
+    "items": [
+      {
+        "name": "whole_grain_content",
+        "value": 0.62,
+        "standard_threshold": 0.5,
+        "contract_threshold": 0.5,
+        "passed_standard": true,
+        "passed_contract": true
+      }
+    ],
+    "conclusion_scope": "sample_and_batch_only"
+  },
+  {
+    "event_id": "evt-2026-B09",
+    "event_type": "ACCEPTANCE_DECIDED",
+    "aggregate_type": "supply_batch",
+    "aggregate_id": "B1002-01",
+    "occurred_at": "2026-09-22T11:30:00+08:00",
+    "version": 2,
+    "summary": "批次验收通过并定案",
+    "order_id": "PO-1002",
+    "sample_ids": ["S-1002-01"],
+    "disposition": "accept",
+    "affected_qty": 800,
+    "final": true
+  },
+  {
+    "event_id": "evt-2026-B10",
+    "event_type": "RECEIPT_CONFIRMED",
+    "aggregate_type": "supply_batch",
+    "aggregate_id": "B1002-01",
+    "occurred_at": "2026-09-22T11:45:00+08:00",
+    "version": 3,
+    "summary": "食堂 F01 接收 800 份，无隔离",
+    "cafeteria_id": "F01",
+    "order_id": "PO-1002",
+    "received_qty": 800,
+    "accepted_qty": 800,
+    "isolated_qty": 0
+  },
+  {
+    "event_id": "evt-2026-B11",
+    "event_type": "MENU_UPDATED",
+    "aggregate_type": "menu_release",
+    "aggregate_id": "menu-F01-2026-09-22",
+    "occurred_at": "2026-09-22T11:50:00+08:00",
+    "version": 1,
+    "summary": "当天菜单随批准替代更新，说明全谷物声明变化原因",
+    "serving_date": "2026-09-22",
+    "cafeteria_id": "F01",
+    "basis": { "type": "substitution", "ref_id": "evt-2026-B04" },
+    "claims": ["今日主食：杂粮饭（糙米、燕麦、藜麦），替代原全麦米饭"],
+    "claim_change_reason": "全麦米原料缺货，经采购中心批准以杂粮饭料包替代，全谷物声明由“全麦米饭”调整为“杂粮饭”"
+  }
+]

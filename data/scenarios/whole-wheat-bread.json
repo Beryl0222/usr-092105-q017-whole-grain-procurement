@@ -1,0 +1,152 @@
+[
+  {
+    "event_id": "evt-2026-A01",
+    "event_type": "TENDER_DEFINED",
+    "aggregate_type": "purchase_contract",
+    "aggregate_id": "contract-wg-2026",
+    "occurred_at": "2026-09-01T09:00:00+08:00",
+    "version": 1,
+    "summary": "保存全谷物集采招标定义：全麦面包，登记国标依据与合同阈值",
+    "tender_id": "ZB-2026-011",
+    "product_category": "全麦面包",
+    "standard_refs": ["GB/T 20981", "全谷物食品通用要求"],
+    "claim_items": ["全麦粉含量不低于50%"],
+    "contract_thresholds": { "whole_grain_content": 0.6 }
+  },
+  {
+    "event_id": "evt-2026-A02",
+    "event_type": "TERMS_LOCKED",
+    "aggregate_type": "purchase_contract",
+    "aggregate_id": "contract-wg-2026",
+    "occurred_at": "2026-09-05T10:00:00+08:00",
+    "version": 2,
+    "summary": "锁定订单 PO-1001 当时有效条款快照",
+    "order_id": "PO-1001",
+    "tender_id": "ZB-2026-011",
+    "terms_snapshot": {
+      "whole_grain_content": 0.6,
+      "claims": ["本餐全麦面包全麦粉含量不低于60%"]
+    }
+  },
+  {
+    "event_id": "evt-2026-A03",
+    "event_type": "BATCH_DELIVERED",
+    "aggregate_type": "supply_batch",
+    "aggregate_id": "B1001-01",
+    "occurred_at": "2026-09-20T07:30:00+08:00",
+    "version": 1,
+    "summary": "全麦面包批次到货，配方证明对应当前生产批次",
+    "order_id": "PO-1001",
+    "production_batch_no": "B1001-01",
+    "product_category": "全麦面包",
+    "formula_cert": { "cert_id": "FC-8817", "covers_batch_no": "B1001-01" },
+    "processing_info": "低温烘焙，独立全麦生产线",
+    "arrived_qty": 1200,
+    "unit": "个"
+  },
+  {
+    "event_id": "evt-2026-A04",
+    "event_type": "SAMPLING_PLAN_ISSUED",
+    "aggregate_type": "acceptance_sample",
+    "aggregate_id": "S-1001-01",
+    "occurred_at": "2026-09-20T08:00:00+08:00",
+    "version": 1,
+    "summary": "下达批次 B1001-01 抽样方案",
+    "batch_id": "B1001-01",
+    "plan": { "method": "分层随机抽样", "sample_size": 8, "items": ["whole_grain_content"] }
+  },
+  {
+    "event_id": "evt-2026-A05",
+    "event_type": "SAMPLE_COLLECTED",
+    "aggregate_type": "acceptance_sample",
+    "aggregate_id": "S-1001-01",
+    "occurred_at": "2026-09-20T08:20:00+08:00",
+    "version": 2,
+    "summary": "按方案完成抽样 8 个",
+    "batch_id": "B1001-01",
+    "plan_id": "evt-2026-A04",
+    "sample_qty": 8,
+    "collected_by": "验收员 赵青"
+  },
+  {
+    "event_id": "evt-2026-A06",
+    "event_type": "TEST_RESULT_RECORDED",
+    "aggregate_type": "acceptance_sample",
+    "aggregate_id": "S-1001-01",
+    "occurred_at": "2026-09-20T15:00:00+08:00",
+    "version": 3,
+    "summary": "全麦粉含量55%：达到国标，未达合同阈值，结论仅覆盖本样品与批次",
+    "batch_id": "B1001-01",
+    "items": [
+      {
+        "name": "whole_grain_content",
+        "value": 0.55,
+        "standard_threshold": 0.5,
+        "contract_threshold": 0.6,
+        "passed_standard": true,
+        "passed_contract": false
+      }
+    ],
+    "conclusion_scope": "sample_and_batch_only"
+  },
+  {
+    "event_id": "evt-2026-A07",
+    "event_type": "ACCEPTANCE_DECIDED",
+    "aggregate_type": "supply_batch",
+    "aggregate_id": "B1001-01",
+    "occurred_at": "2026-09-20T16:00:00+08:00",
+    "version": 2,
+    "summary": "标准与合同阈值不一致，记录差异并由验收组长签署让步接收",
+    "order_id": "PO-1001",
+    "sample_ids": ["S-1001-01"],
+    "disposition": "accept",
+    "affected_qty": 1200,
+    "divergence": {
+      "note": "检测值55%：达到国标50%，未达合同阈值60%，按合同让步接收条款处理并扣款",
+      "signed_by": "验收组长 王岚"
+    },
+    "final": false
+  },
+  {
+    "event_id": "evt-2026-A08",
+    "event_type": "RECEIPT_CONFIRMED",
+    "aggregate_type": "supply_batch",
+    "aggregate_id": "B1001-01",
+    "occurred_at": "2026-09-21T06:40:00+08:00",
+    "version": 3,
+    "summary": "食堂 F01 接收 1200 个，无隔离",
+    "cafeteria_id": "F01",
+    "order_id": "PO-1001",
+    "received_qty": 1200,
+    "accepted_qty": 1200,
+    "isolated_qty": 0
+  },
+  {
+    "event_id": "evt-2026-A09",
+    "event_type": "MENU_UPDATED",
+    "aggregate_type": "menu_release",
+    "aggregate_id": "menu-F01-2026-09-21",
+    "occurred_at": "2026-09-21T07:00:00+08:00",
+    "version": 1,
+    "summary": "当天菜单随实际接收更新，营养声明按实际检测值下调",
+    "serving_date": "2026-09-21",
+    "cafeteria_id": "F01",
+    "basis": { "type": "receipt", "ref_id": "evt-2026-A08" },
+    "claims": ["今日全麦面包：全麦粉含量55%（合同承诺60%，差异已签署接收）"],
+    "claim_change_reason": "实际接收批次全麦粉含量55%，低于合同承诺的60%，营养声明按实际检测值下调"
+  },
+  {
+    "event_id": "evt-2026-A10",
+    "event_type": "DEDUCTION_APPLIED",
+    "aggregate_type": "purchase_contract",
+    "aggregate_id": "contract-wg-2026",
+    "occurred_at": "2026-09-21T10:00:00+08:00",
+    "version": 3,
+    "summary": "按让步接收条款扣款 960 元，验收决定定案",
+    "order_id": "PO-1001",
+    "batch_id": "B1001-01",
+    "amount": 960,
+    "reason": "全麦粉含量低于合同阈值的让步接收扣款",
+    "linked_decision_id": "evt-2026-A07"
+  }
+]

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "全谷物集采验收领域事件",
-  "description": "用于跨模块交换事实记录的公共信封。",
+  "description": "用于跨模块交换事实记录的公共信封。各事件类型的负载规则见 src/payloads.js，跨事件流转约束见 src/ledger.js。",
   "type": "object",
   "required": [
     "event_id",
@@ -16,16 +16,26 @@
     "event_id": {
       "type": "string",
       "minLength": 8,
-      "description": "事件唯一标识"
+      "description": "事件唯一标识，来源系统重试时必须沿用"
     },
     "event_type": {
       "type": "string",
       "enum": [
+        "TENDER_DEFINED",
+        "TERMS_LOCKED",
         "BATCH_DELIVERED",
+        "SAMPLING_PLAN_ISSUED",
         "SAMPLE_COLLECTED",
+        "TEST_RESULT_RECORDED",
         "ACCEPTANCE_DECIDED",
+        "RECEIPT_CONFIRMED",
+        "RETURN_RECORDED",
+        "SUBSTITUTION_REQUESTED",
         "SUBSTITUTION_APPROVED",
-        "MENU_UPDATED"
+        "MENU_UPDATED",
+        "DEDUCTION_APPLIED",
+        "APPEAL_FILED",
+        "EVIDENCE_SUPPLEMENTED"
       ],
       "description": "本领域事件类型"
     },
@@ -52,7 +62,7 @@
     "version": {
       "type": "integer",
       "minimum": 1,
-      "description": "对象版本"
+      "description": "对象版本，按 aggregate_id 从 1 开始递增"
     },
     "summary": {
       "type": "string",

@@ -1,9 +1,16 @@
 {
   "event_id": "evt-092105-017-0001",
   "event_type": "BATCH_DELIVERED",
-  "aggregate_type": "purchase_contract",
-  "aggregate_id": "whole-grain-procurement-001",
-  "occurred_at": "2026-09-20T12:00:00+08:00",
+  "aggregate_type": "supply_batch",
+  "aggregate_id": "B1001-01",
+  "occurred_at": "2026-09-20T07:30:00+08:00",
   "version": 1,
-  "summary": "登记全谷物集采验收的首条领域记录"
+  "summary": "全麦面包批次到货，配方证明对应当前生产批次",
+  "order_id": "PO-1001",
+  "production_batch_no": "B1001-01",
+  "product_category": "全麦面包",
+  "formula_cert": { "cert_id": "FC-8817", "covers_batch_no": "B1001-01" },
+  "processing_info": "低温烘焙，独立全麦生产线",
+  "arrived_qty": 1200,
+  "unit": "个"
 }
